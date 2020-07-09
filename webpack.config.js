@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 const webpack = require("webpack");
 
 module.exports = (env, argv) => {
@@ -11,7 +12,7 @@ module.exports = (env, argv) => {
       path: __dirname + "/review_build",
       filename: "bundle.js",
     },
-    module: {
+    module.exports = {
       rules: [
         {
           test: /.jsx?$/,
@@ -33,6 +34,11 @@ module.exports = (env, argv) => {
       new HtmlWebpackPlugin({
         template: "./src/index.html",
       }),
+      new CopyPlugin({
+      patterns: [
+        { from: '_redirects', to: '' },
+      ],
+    }),
     ],
     resolve: {
       extensions: [".js", ".jsx"],
