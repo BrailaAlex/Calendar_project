@@ -9,10 +9,10 @@ module.exports = (env, argv) => {
   const config = {
     entry: "./src/index.jsx",
     output: {
-      path: __dirname + "/review_build",
+      path: __dirname + "/build",
       filename: "bundle.js",
     },
-    module.exports = {
+    module: {
       rules: [
         {
           test: /.jsx?$/,
@@ -35,10 +35,8 @@ module.exports = (env, argv) => {
         template: "./src/index.html",
       }),
       new CopyPlugin({
-      patterns: [
-        { from: '_redirects', to: '' },
-      ],
-    }),
+        patterns: [{ from: "_redirects", to: "" }],
+      }),
     ],
     resolve: {
       extensions: [".js", ".jsx"],
