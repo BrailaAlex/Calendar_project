@@ -1,8 +1,8 @@
 import React from "react";
 
-const TodayButton = (props) => {
+const TodayButton = ({ currentWeek }) => {
   return (
-    <button className="header-navigation__today-btn">
+    <button onClick={currentWeek} className="header-navigation__today-btn">
       <span className="header-navigation__today-btn__text">Today</span>
     </button>
   );

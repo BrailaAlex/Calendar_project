@@ -1,0 +1,63 @@
+.main-board {
+  padding-top: 147px;
+  display: flex;
+}
+
+.time-string {
+  &__hours {
+    margin-top: 53px;
+
+    &__hour {
+      width: 52px;
+      height: 60px;
+      text-align: center;
+    }
+  }
+}
+
+.separateline-string {
+  &__gmt {
+    height: 24px;
+    width: 8px;
+    border-right: 1px solid #616161;
+  }
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+
+  &__line {
+    height: 60px;
+    width: 8px;
+    border: 1px solid #616161;
+    border-left: none;
+    border-bottom: none;
+  }
+}
+
+.week {
+  width: 100%;
+  display: flex;
+
+  &__day-block {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #616161;
+    flex-grow: 1;
+
+    &:last-of-type {
+      border-right: none;
+    }
+    &__holiday {
+      height: 24px;
+    }
+    &__day-string {
+      display: flex;
+      flex-direction: column;
+      &__hour {
+        border-top: 1px solid #616161;
+        height: 60px;
+      }
+    }
+  }
+}

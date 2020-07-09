@@ -1,13 +1,13 @@
 import React from "react";
 import WeekBoard from "./WeekBoard";
 import TimeSign from "./TimeSign";
-import "./index.scss";
+import "./main.scss";
 
-const MainBoard = () => {
+const MainBoard = (props) => {
   return (
     <div className="main-board">
       <TimeSign />
-      <WeekBoard />
+      <WeekBoard {...props} />
     </div>
   );
 };

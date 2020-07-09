@@ -4,13 +4,13 @@ import MonthMonitor from "./MonthMonitor";
 import NavigationButtons from "./NavigationButtons";
 import TodayButton from "./TodayButton";
 
-const HeaderNavigation = () => {
+const HeaderNavigation = (props) => {
   return (
     <div className="header-navigation">
-      <HeaderCreateTaskBtn />
-      <MonthMonitor />
-      <TodayButton />
-      <NavigationButtons />
+      <HeaderCreateTaskBtn {...props} />
+      <TodayButton {...props} />
+      <NavigationButtons {...props} />
+      <MonthMonitor {...props} />
     </div>
   );
 };

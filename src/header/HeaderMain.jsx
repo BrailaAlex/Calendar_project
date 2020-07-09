@@ -4,27 +4,38 @@ import DayOfWeek from "./DayOfWeek";
 import "./header.scss";
 import moment from "moment";
 
-const weekString = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+class HeaderMain extends React.Component {
+  getDates = () => {
+    const weekString = [];
 
-const HeaderMain = () => {
-  return (
-    <header className="header">
-      <HeaderNavigation />
-      <div className="header-main">
-        <div class="header-main__gmt-zone">
-          <span class="header-main__gmt-zone__text">
-            {"GMT+ " + moment().utcOffset() / 60}
-          </span>
+    for (let i = 0; i <= 6; i++) {
+      let arg = this.props.currentMonday + i;
+      weekString.push(arg);
+    }
+    return weekString;
+  };
+
+  render() {
+    const { currentMonday, ...props } = this.props;
+    return (
+      <header className="header">
+        <HeaderNavigation getMonth={this.getDates} {...this.props} />
+        <div className="header-main">
+          <div className="header-main__gmt-zone">
+            <span className="header-main__gmt-zone__text">
+              {"GMT+ " + moment().utcOffset() / 60}
+            </span>
+          </div>
+          <div className="header-main__gmt-separateline"></div>
+          <ul className="header-main__weekstring">
+            {this.getDates().map((day) => (
+              <DayOfWeek key={day}>{day}</DayOfWeek>
+            ))}
+          </ul>
         </div>
-        <div class="header-main__gmt-separateline"></div>
-        <ul className="header-main__weekstring">
-          {weekString.map((day) => (
-            <DayOfWeek>{day}</DayOfWeek>
-          ))}
-        </ul>
-      </div>
-    </header>
-  );
-};
+      </header>
+    );
+  }
+}
 
 export default HeaderMain;
