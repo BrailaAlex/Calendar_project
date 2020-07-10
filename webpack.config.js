@@ -9,7 +9,7 @@ module.exports = (env, argv) => {
   const config = {
     entry: "./src/index.jsx",
     output: {
-      path: __dirname + "/build",
+      path: `${__dirname}/build`,
       filename: "bundle.js",
     },
     module: {
