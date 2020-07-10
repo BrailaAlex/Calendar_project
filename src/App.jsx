@@ -75,26 +75,30 @@ class App extends React.Component {
   };
 
   render() {
-    // if (this.state.events.length === 0) {
-    //   this.getEventsList();
-    // }
+    const style = this.state.isPopup
+      ? {
+          opacity: 0.4,
+        }
+      : null;
     return (
-      <div className="calendar">
-        <HeaderMain
-          getDates={this.getDates}
-          currentWeek={this.toggleCurrentWeek}
-          nextWeek={this.toggleNextWeek}
-          prevWeek={this.togglePrevWeek}
-          currentMonday={this.state.firstMondayNumber}
-          showPopUp={this.showPopUp}
-          isPopup={this.state.isPopup}
-        />
-        <MainBoard
-          events={this.state.events}
-          getDates={this.getDates}
-          showPopUp={this.showPopUp}
-          isPopup={this.state.isPopup}
-        />
+      <>
+        <div style={style} className="calendar">
+          <HeaderMain
+            getDates={this.getDates}
+            currentWeek={this.toggleCurrentWeek}
+            nextWeek={this.toggleNextWeek}
+            prevWeek={this.togglePrevWeek}
+            currentMonday={this.state.firstMondayNumber}
+            showPopUp={this.showPopUp}
+            isPopup={this.state.isPopup}
+          />
+          <MainBoard
+            events={this.state.events}
+            getDates={this.getDates}
+            showPopUp={this.showPopUp}
+            isPopup={this.state.isPopup}
+          />
+        </div>
         {this.state.isPopup && (
           <PopUp
             events={this.state.events}
@@ -104,10 +108,7 @@ class App extends React.Component {
             hidePopup={this.hidePopUp}
           />
         )}
-        {/* {this.state.events.map((event) => (
-          <Event />
-        ))} */}
-      </div>
+      </>
     );
   }
 }

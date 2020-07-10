@@ -6,12 +6,13 @@
   flex-direction: column;
   width: 12%;
   color: #fff;
+  justify-content: center;
 
   &__contain {
     text-align: center;
   }
 
-  &__contain {
+  &__time {
     text-align: center;
   }
 }
