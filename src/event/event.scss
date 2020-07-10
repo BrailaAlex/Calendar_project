@@ -1,0 +1,17 @@
+.event {
+  position: absolute;
+  background-color: #4160ec;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 12%;
+  color: #fff;
+
+  &__contain {
+    text-align: center;
+  }
+
+  &__contain {
+    text-align: center;
+  }
+}

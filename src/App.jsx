@@ -2,12 +2,46 @@ import React from "react";
 import HeaderMain from "./header/HeaderMain";
 import MainBoard from "./main/MainBoard";
 import PopUp from "./popup/PopUp";
-import moment from "moment";
+import {
+  createEvent,
+  fetchEventsList,
+  deleteEvent,
+} from "../src/serverPart/gateWays";
 
 class App extends React.Component {
   state = {
     isPopup: false,
     firstMondayNumber: 1,
+    events: [],
+  };
+
+  componentDidMount() {
+    this.getEventsList();
+  }
+
+  getDates = () => {
+    const weekString = [];
+
+    for (let i = 0; i <= 6; i++) {
+      let arg = this.state.firstMondayNumber + i;
+      weekString.push(arg);
+    }
+    return weekString;
+  };
+
+  getEventsList = () => {
+    fetchEventsList().then((eventsList) => {
+      this.setState({
+        events: eventsList,
+      });
+    });
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const newEvent = Object.fromEntries(new FormData(e.target));
+    createEvent(newEvent).then(() => this.getEventsList());
+    this.hidePopUp();
   };
 
   showPopUp = () => {
@@ -41,9 +75,13 @@ class App extends React.Component {
   };
 
   render() {
+    // if (this.state.events.length === 0) {
+    //   this.getEventsList();
+    // }
     return (
       <div className="calendar">
         <HeaderMain
+          getDates={this.getDates}
           currentWeek={this.toggleCurrentWeek}
           nextWeek={this.toggleNextWeek}
           prevWeek={this.togglePrevWeek}
@@ -51,10 +89,24 @@ class App extends React.Component {
           showPopUp={this.showPopUp}
           isPopup={this.state.isPopup}
         />
-        <MainBoard showPopUp={this.showPopUp} isPopup={this.state.isPopup} />
+        <MainBoard
+          events={this.state.events}
+          getDates={this.getDates}
+          showPopUp={this.showPopUp}
+          isPopup={this.state.isPopup}
+        />
         {this.state.isPopup && (
-          <PopUp isPopup={this.state.isPopup} hidePopup={this.hidePopUp} />
+          <PopUp
+            events={this.state.events}
+            handleSubmit={this.handleSubmit}
+            handleChange={this.handleChange}
+            isPopup={this.state.isPopup}
+            hidePopup={this.hidePopUp}
+          />
         )}
+        {/* {this.state.events.map((event) => (
+          <Event />
+        ))} */}
       </div>
     );
   }

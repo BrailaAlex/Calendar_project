@@ -3,19 +3,21 @@ import moment from "moment";
 
 const MonthMonitor = (props) => {
   const monthString = props.getMonth();
-  console.log(monthString[0]);
+  const startOfWeek = moment().isoWeekday(monthString[0]);
+  const endOfWeek = moment().isoWeekday(monthString[6]);
+  const sameMonth = startOfWeek.format("MMMM YYYY");
+  const difMonths = `${startOfWeek.format("MMM")} - ${endOfWeek.format(
+    "MMM YYYY"
+  )}`;
+  const difYears = `${startOfWeek.format("MMM YYYY")} - ${endOfWeek.format(
+    "MMM YYYY"
+  )}`;
   const currentMonth =
-    moment().isoWeekday(monthString[0]).format("MM") ===
-    moment().isoWeekday(monthString[6]).format("MM")
-      ? moment().isoWeekday(monthString[0]).format("MMMM YYYY")
-      : `${moment()
-          .isoWeekday(monthString[0])
-          .format("MMM")} - ${moment()
-          .isoWeekday(monthString[6])
-          .format("MMM")} ${moment()
-          .isoWeekday(monthString[6])
-          .format("YYYY")}`;
-  console.log(currentMonth);
+    startOfWeek.format("MM") === endOfWeek.format("MM")
+      ? sameMonth
+      : startOfWeek.format("YYYY") === endOfWeek.format("YYYY")
+      ? difMonths
+      : difYears;
   return (
     <span className="header-navigation__month-shower">{currentMonth}</span>
   );

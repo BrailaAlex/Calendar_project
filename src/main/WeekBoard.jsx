@@ -1,13 +1,29 @@
 import React from "react";
 import DayString from "./DayString";
-import { getRangeOfnumbers } from "../ranges/rangeOfNumbers";
+import Event from "../event/Event";
 
-const WeekBoard = (props) => {
+const WeekBoard = ({ getDates, events, showPopUp }) => {
   return (
     <div className="week">
-      {getRangeOfnumbers(1, 7).map((day) => (
-        <DayString key={day} {...props} />
-      ))}
+      {getDates().map((day) => {
+        const key = moment().isoWeekday(day).format("YYYY-MM-DD");
+        return (
+          <DayString key={day} showPopUp={showPopUp}>
+            {events.map((event) => {
+              if (event["event-date"] === key) {
+                return (
+                  <Event
+                    key={event.id}
+                    startTime={event["event-start"]}
+                    endTime={event["event-end"]}
+                    description={event["event-description"]}
+                  />
+                );
+              }
+            })}
+          </DayString>
+        );
+      })}
     </div>
   );
 };

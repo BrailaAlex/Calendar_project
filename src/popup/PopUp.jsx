@@ -1,17 +1,42 @@
 import React from "react";
-import moment from "moment";
 import TimePicker from "./TimePicker";
 import SaveButton from "./SaveButton";
 import CloseButton from "./CloseButton";
-
 import "./popUp.scss";
 
 class PopUp extends React.Component {
+  state = {
+    "event-name": "",
+    "event-date": moment().format("YYYY-MM-DD"),
+    "event-start": "",
+    "event-end": "",
+    "event-description": "",
+  };
+
+  handleChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value,
+    });
+  };
+
+  onSubmit = (event) => {
+    this.props.handleSubmit(event);
+    for (let name in this.state) {
+      this.setState({
+        [name]: "",
+      });
+    }
+  };
+
   render() {
+    const { hidePopup, events } = this.props;
     return (
-      <form className="event-form">
-        <CloseButton {...this.props} />
+      <form events={events} onSubmit={this.onSubmit} className="event-form">
+        <CloseButton hidePopup={hidePopup} />
         <input
+          onChange={this.handleChange}
+          value={this.state["event-name"]}
           className="event-form__comment"
           type="text"
           name="event-name"
@@ -19,18 +44,30 @@ class PopUp extends React.Component {
         />
         <div className="event-form__date-set">
           <input
+            onChange={this.handleChange}
+            value={this.state["event-date"]}
             className="event-form__date-set__date"
             type="date"
             id="start"
             name="event-date"
           />
-          <TimePicker />
-          <TimePicker />
+          <TimePicker
+            handleChange={this.handleChange}
+            value={this.state["event-start"]}
+            name="event-start"
+          />
+          <TimePicker
+            handleChange={this.handleChange}
+            value={this.state["event-end"]}
+            name="event-end"
+          />
         </div>
         <div className="event-form__event-description">
           <textarea
+            value={this.state["event-description"]}
+            onChange={this.handleChange}
             className="event-form__event-description__input"
-            name="description-input"
+            name="event-description"
             cols="40"
             rows="4"
             placeholder="Description"

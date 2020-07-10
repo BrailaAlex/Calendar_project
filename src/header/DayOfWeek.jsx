@@ -12,7 +12,9 @@ const DayOfWeek = ({ children }) => {
       : null;
   return (
     <li className="header-main__weekstring__day">
-      <span className="header-main__weekstring__day-name">{children}</span>
+      <span className="header-main__weekstring__day-name">
+        {moment().isoWeekday(children).format("ddd")}
+      </span>
       <span style={style} className="header-main__weekstring__day-date">
         {moment().isoWeekday(children).format("DD")}
       </span>

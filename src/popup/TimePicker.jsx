@@ -1,9 +1,14 @@
 import React from "react";
 import { timeDivide } from "./popUpFunctionality";
 
-const TimePicker = () => {
+const TimePicker = ({ name, value, handleChange }) => {
   return (
-    <select className="event-form__date-set__time-picker" name="event-start">
+    <select
+      onChange={handleChange}
+      value={value}
+      className="event-form__date-set__time-picker"
+      name={name}
+    >
       {timeDivide().map((arg) => (
         <option key={arg}>{arg}</option>
       ))}

@@ -1,4 +1,5 @@
 .main-board {
+  width: 100%;
   padding-top: 147px;
   display: flex;
 }
@@ -36,6 +37,7 @@
 }
 
 .week {
+  position: relative;
   width: 100%;
   display: flex;
 
@@ -48,16 +50,9 @@
     &:last-of-type {
       border-right: none;
     }
-    &__holiday {
-      height: 24px;
-    }
-    &__day-string {
-      display: flex;
-      flex-direction: column;
-      &__hour {
-        border-top: 1px solid #616161;
-        height: 60px;
-      }
+    &__hour {
+      border-top: 1px solid #616161;
+      height: 60px;
     }
   }
 }
