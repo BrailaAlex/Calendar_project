@@ -1,0 +1,20 @@
+.red-line {
+  position: absolute;
+  display: flex;
+  width: 104%;
+  align-items: center;
+  left: -4%;
+
+  &__dot {
+    background-color: #f00;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+  }
+
+  &__line {
+    background-color: #f00;
+    height: 2px;
+    width: 100%;
+  }
+}

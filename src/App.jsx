@@ -2,17 +2,17 @@ import React from "react";
 import HeaderMain from "./header/HeaderMain";
 import MainBoard from "./main/MainBoard";
 import PopUp from "./popup/PopUp";
-import {
-  createEvent,
-  fetchEventsList,
-  deleteEvent,
-} from "../src/serverPart/gateWays";
+import moment from "moment";
+import { createEvent, fetchEventsList } from "../src/serverPart/gateWays";
 
 class App extends React.Component {
   state = {
     isPopup: false,
     firstMondayNumber: 1,
     events: [],
+    eventEnd: "",
+    eventStart: "",
+    date: "",
   };
 
   componentDidMount() {
@@ -44,8 +44,26 @@ class App extends React.Component {
     this.hidePopUp();
   };
 
-  showPopUp = () => {
+  showPopUp = (e) => {
+    let start;
+    let end;
+    let date;
+    if (event.target.classList.contains("week__day-block__hour")) {
+      start =
+        event.target.previousSibling.id < 10
+          ? `0${event.target.previousSibling.id}`
+          : event.target.previousSibling.id;
+      end = event.target.id < 10 ? `0${event.target.id}` : event.target.id;
+      date = event.target.closest(".week__day-block").id;
+    } else {
+      start = new Date().getHours();
+      end = new Date().getHours() + 1;
+      date = moment().format("YYYY-MM-DD");
+    }
     this.setState({
+      date: date,
+      eventStart: `${start}:00`,
+      eventEnd: `${end}:00`,
       isPopup: true,
     });
   };
@@ -101,6 +119,9 @@ class App extends React.Component {
         </div>
         {this.state.isPopup && (
           <PopUp
+            date={this.state.date}
+            eventStart={this.state.eventStart}
+            eventEnd={this.state.eventEnd}
             events={this.state.events}
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}

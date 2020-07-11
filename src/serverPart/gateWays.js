@@ -10,7 +10,7 @@ export const createEvent = (eventData) => {
     body: JSON.stringify(eventData),
   }).then((response) => {
     if (!response.ok) {
-      throw new Error("Failed to create event");
+      throw new Error("Internal Server Error. Can't display events");
     }
   });
 };
@@ -18,7 +18,7 @@ export const createEvent = (eventData) => {
 export const fetchEventsList = () => {
   return fetch(sourceUrl).then((response) => {
     if (!response.ok) {
-      throw new Error("Failed to fetch");
+      throw new Error("Internal Server Error. Can't display events");
     }
     return response.json();
   });
@@ -29,7 +29,7 @@ export const deleteEvent = (id) => {
     method: "DELETE",
   }).then((response) => {
     if (!response.ok) {
-      throw new Error("Failed to delete event");
+      throw new Error("Internal Server Error. Can't display events");
     }
   });
 };

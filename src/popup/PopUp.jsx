@@ -7,9 +7,9 @@ import "./popUp.scss";
 class PopUp extends React.Component {
   state = {
     "event-name": "",
-    "event-date": moment().format("YYYY-MM-DD"),
-    "event-start": "",
-    "event-end": "",
+    "event-date": this.props.date,
+    "event-start": this.props.eventStart,
+    "event-end": this.props.eventEnd,
     "event-description": "",
   };
 
