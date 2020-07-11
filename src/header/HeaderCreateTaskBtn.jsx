@@ -1,8 +1,15 @@
 import React from "react";
+import moment from "moment";
 
 const HeaderCreateTaskBtn = ({ showPopUp }) => {
+  const start = new Date().getHours();
+  const end = new Date().getHours() + 1;
+  const date = moment().format("YYYY-MM-DD");
   return (
-    <button onClick={showPopUp} className="header-navigation__createtask-btn">
+    <button
+      onClick={() => showPopUp(start, end, date)}
+      className="header-navigation__createtask-btn"
+    >
       <svg
         className="header-navigation__createtask-btn__cross"
         width="36"

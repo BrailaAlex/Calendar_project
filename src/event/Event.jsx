@@ -1,12 +1,25 @@
 import React from "react";
 import "./event.scss";
-import { deleteEvent } from "../serverPart/gateWays";
+import DeleteBtn from "./DeleteBtn";
 
 class Event extends React.Component {
   state = {
     isDelete: false,
   };
 
+  showDelete = () => {
+    this.setState({
+      isDelete: true,
+    });
+  };
+
+  deleteEvent = (id) => {
+    this.props.deleteEvent(id).then(() =>
+      this.setState({
+        isDelete: true,
+      })
+    );
+  };
   render() {
     const { startTime, endTime, eventName, id } = this.props;
     let start =
@@ -22,9 +35,12 @@ class Event extends React.Component {
       height: `${duration}px`,
     };
     return (
-      <div style={style} className="event">
+      <div onClick={this.showDelete} style={style} className="event">
         <span className="event__contain">{eventName}</span>
         <span className="event__time">{`${startTime} - ${endTime}`}</span>
+        {this.state.isDelete && (
+          <DeleteBtn deleteTask={this.deleteEvent} id={id} />
+        )}
       </div>
     );
   }

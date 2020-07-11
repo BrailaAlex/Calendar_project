@@ -3,7 +3,11 @@ import HeaderMain from "./header/HeaderMain";
 import MainBoard from "./main/MainBoard";
 import PopUp from "./popup/PopUp";
 import moment from "moment";
-import { createEvent, fetchEventsList } from "../src/serverPart/gateWays";
+import {
+  createEvent,
+  fetchEventsList,
+  deleteEvent,
+} from "../src/serverPart/gateWays";
 
 class App extends React.Component {
   state = {
@@ -13,11 +17,22 @@ class App extends React.Component {
     eventEnd: "",
     eventStart: "",
     date: "",
+    isDelete: false,
   };
 
   componentDidMount() {
     this.getEventsList();
   }
+
+  onDeleteShow = () => {
+    this.setState({
+      isDelete: true,
+    });
+  };
+
+  onDeleteEvent = (id) => {
+    return deleteEvent(id).then(() => this.getEventsList());
+  };
 
   getDates = () => {
     const weekString = [];
@@ -44,24 +59,10 @@ class App extends React.Component {
     this.hidePopUp();
   };
 
-  showPopUp = (e) => {
-    let start;
-    let end;
-    let date;
-    if (event.target.classList.contains("week__day-block__hour")) {
-      start =
-        event.target.previousSibling.id < 10
-          ? `0${event.target.previousSibling.id}`
-          : event.target.previousSibling.id;
-      end = event.target.id < 10 ? `0${event.target.id}` : event.target.id;
-      date = event.target.closest(".week__day-block").id;
-    } else {
-      start = new Date().getHours();
-      end = new Date().getHours() + 1;
-      date = moment().format("YYYY-MM-DD");
-    }
+  showPopUp = (start, end, date) => {
     this.setState({
-      date: date,
+      isDelete: false,
+      date,
       eventStart: `${start}:00`,
       eventEnd: `${end}:00`,
       isPopup: true,
@@ -111,6 +112,9 @@ class App extends React.Component {
             isPopup={this.state.isPopup}
           />
           <MainBoard
+            isDelete={this.state.isDelete}
+            showDelete={this.onDeleteShow}
+            deleteEvent={this.onDeleteEvent}
             events={this.state.events}
             getDates={this.getDates}
             showPopUp={this.showPopUp}

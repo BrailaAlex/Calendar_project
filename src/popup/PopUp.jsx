@@ -2,7 +2,7 @@ import React from "react";
 import TimePicker from "./TimePicker";
 import CloseButton from "./CloseButton";
 import SaveButton from "./SaveButton";
-import "./popUp.scss";
+import "./popup.scss";
 
 class PopUp extends React.Component {
   state = {
