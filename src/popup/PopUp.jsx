@@ -1,7 +1,7 @@
 import React from "react";
 import TimePicker from "./TimePicker";
-import SaveButton from "./SaveButton";
 import CloseButton from "./CloseButton";
+// import SaveButton from "./SaveButton";
 import "./popUp.scss";
 
 class PopUp extends React.Component {
@@ -73,7 +73,11 @@ class PopUp extends React.Component {
             placeholder="Description"
           />
         </div>
-        <SaveButton />
+        <div className="event-form__save-container">
+          <button className="event-form__save-container__button" type="submit">
+            Save
+          </button>
+        </div>
       </form>
     );
   }

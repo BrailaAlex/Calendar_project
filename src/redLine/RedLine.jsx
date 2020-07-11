@@ -1,27 +1,33 @@
 import React from "react";
 import "./RedLine.scss";
 
+const getDistance = () => {
+  const top = new Date().getHours() * 60 + new Date().getMinutes();
+  return `${top}px`;
+};
+
 class RedLine extends React.Component {
   state = {
-    currentTime: new Date().getHours() * 60 + new Date().getMinutes(),
+    top: getDistance(),
   };
 
   componentDidMount() {
     this.interval = setInterval(() => {
       this.setState({
-        currentTime: new Date().getHours() * 60 + new Date().getMinutes(),
+        top: getDistance(),
       });
     }, 60000);
   }
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
 
   render() {
-    const currentTime = this.state.currentTime;
     const style = {
-      top: `${currentTime}px`,
+      top: this.state.top,
     };
     return (
       <div style={style} className="red-line">
-        <span className="red-line__dot"></span>
         <span className="red-line__line"></span>
       </div>
     );
