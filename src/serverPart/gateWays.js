@@ -1,5 +1,4 @@
-const sourceUrl =
-  "https://5ee220bb8b27f3001609462e.mockapi.io/api/v1/CalendarEvents";
+const sourceUrl = "https://5ee220bb8b27f3001609462e.mockapi.io/api/v1/Calendar";
 
 export const createEvent = (eventData) => {
   return fetch(sourceUrl, {

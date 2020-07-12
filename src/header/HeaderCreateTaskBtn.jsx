@@ -7,7 +7,7 @@ const HeaderCreateTaskBtn = ({ showPopUp }) => {
   const date = moment().format("YYYY-MM-DD");
   return (
     <button
-      onClick={() => showPopUp(start, end, date)}
+      onClick={() => showPopUp(start, end, date, date)}
       className="header-navigation__createtask-btn"
     >
       <svg

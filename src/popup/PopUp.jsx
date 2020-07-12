@@ -2,15 +2,18 @@ import React from "react";
 import TimePicker from "./TimePicker";
 import CloseButton from "./CloseButton";
 import SaveButton from "./SaveButton";
+import ValidateMessage from "./ValidateMessage";
+import DatePicker from "./DatePicker";
 import "./popup.scss";
 
 class PopUp extends React.Component {
   state = {
     "event-name": "",
-    "event-date": this.props.date,
+    "event-start-date": this.props.startDate,
     "event-start": this.props.eventStart,
     "event-end": this.props.eventEnd,
     "event-description": "",
+    "event-end-date": this.props.endDate,
   };
 
   handleChange = (event) => {
@@ -22,17 +25,12 @@ class PopUp extends React.Component {
 
   onSubmit = (event) => {
     this.props.handleSubmit(event);
-    for (let name in this.state) {
-      this.setState({
-        [name]: "",
-      });
-    }
   };
 
   render() {
-    const { hidePopup, events } = this.props;
+    const { hidePopup } = this.props;
     return (
-      <form events={events} onSubmit={this.onSubmit} className="event-form">
+      <form onSubmit={this.onSubmit} className="event-form">
         <CloseButton hidePopup={hidePopup} />
         <input
           onChange={this.handleChange}
@@ -43,13 +41,11 @@ class PopUp extends React.Component {
           placeholder="Comment to event"
         />
         <div className="event-form__date-set">
-          <input
+          <DatePicker
+            name="event-start-date"
             onChange={this.handleChange}
-            value={this.state["event-date"]}
-            className="event-form__date-set__date"
-            type="date"
-            id="start"
-            name="event-date"
+            value={this.state["event-start-date"]}
+            id="start-date"
           />
           <TimePicker
             handleChange={this.handleChange}
@@ -61,7 +57,24 @@ class PopUp extends React.Component {
             value={this.state["event-end"]}
             name="event-end"
           />
+          <DatePicker
+            name="event-end-date"
+            onChange={this.handleChange}
+            value={this.state["event-end-date"]}
+            id="end-date"
+          />
         </div>
+        {this.props.otherPlans && (
+          <ValidateMessage>
+            It seems you have another plans buddy
+          </ValidateMessage>
+        )}
+        {this.props.tooLong && (
+          <ValidateMessage>It can`t take more, than 6 hours</ValidateMessage>
+        )}
+        {this.props.isMidnight && (
+          <ValidateMessage>Try to finish it in one day</ValidateMessage>
+        )}
         <div className="event-form__event-description">
           <textarea
             value={this.state["event-description"]}

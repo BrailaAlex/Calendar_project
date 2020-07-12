@@ -13,7 +13,7 @@ const DayString = ({ showPopUp, children, id }) => {
           <div
             id={hour}
             key={hour}
-            onClick={() => showPopUp(start, end, date)}
+            onClick={() => showPopUp(start, end, date, date)}
             className="week__day-block__hour"
           ></div>
         );
