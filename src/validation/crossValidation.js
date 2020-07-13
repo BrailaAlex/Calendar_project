@@ -39,7 +39,7 @@ export const crossValidation = (
   });
   console.log(crossingEvents.length);
   if (crossingEvents.length > 0) {
-    alert("It seems you have another plans buddy");
+    alert("It seems you have another plans for that time");
     return true;
   } else {
     return false;

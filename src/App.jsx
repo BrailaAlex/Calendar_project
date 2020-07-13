@@ -42,11 +42,13 @@ class App extends React.Component {
   };
 
   getEventsList = () => {
-    fetchEventsList().then((eventsList) => {
-      this.setState({
-        events: eventsList,
-      });
-    });
+    fetchEventsList()
+      .then((eventsList) => {
+        this.setState({
+          events: eventsList,
+        });
+      })
+      .catch((error) => alert(error));
   };
 
   handleSubmit = (e) => {
