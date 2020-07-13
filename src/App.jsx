@@ -54,7 +54,6 @@ class App extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const newEvent = Object.fromEntries(new FormData(e.target));
-    console.log(newEvent);
     if (
       oneDayValidation(
         newEvent["event-start"],
@@ -85,8 +84,6 @@ class App extends React.Component {
   };
 
   showPopUp = (start, end, startDate, endDate) => {
-    console.log(startDate);
-    console.log(endDate);
     this.setState({
       startDate,
       endDate,

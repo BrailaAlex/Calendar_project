@@ -1,16 +1,15 @@
 import moment from "moment";
 
-export const deleteValidation = (startTime, date, endTime) => {
-  const currentTime = moment().format("YYYY-MM-DD hh:mm");
+export const deleteValidation = (startTime, date) => {
+  const currentTime = moment().format("YYYY-MM-DD HH:mm");
   const beforeDiff = moment(`${date} ${startTime}`).diff(
     currentTime,
     "minutes"
   );
-  const afterDiff = moment(currentTime).diff(`${date} ${endTime}`, "minutes");
 
-  if (beforeDiff < 15 && afterDiff < 0) {
+  if (beforeDiff < 15 && beforeDiff >= 0) {
     alert(
-      "You can't scip the event, when it less than 15 min before it'll start and before it'll end"
+      "You can't skip the event, when it less than 15 mins before it'll start and before it'll end"
     );
     return true;
   } else {

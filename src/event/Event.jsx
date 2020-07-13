@@ -8,6 +8,10 @@ class Event extends React.Component {
     isDelete: false,
   };
 
+  componentDidMount() {
+    this.hideDelete();
+  }
+
   showDelete = () => {
     this.setState({
       isDelete: true,
@@ -15,21 +19,13 @@ class Event extends React.Component {
   };
 
   hideDelete = () => {
-    debugger;
     this.setState({
       isDelete: false,
     });
   };
 
   deleteEvent = (id) => {
-    if (
-      deleteValidation(
-        this.props.startTime,
-        this.props.date,
-        this.props.endTime
-      )
-    ) {
-      debugger;
+    if (deleteValidation(this.props.startTime, this.props.date)) {
       this.hideDelete();
     } else {
       this.props.deleteEvent(id);
