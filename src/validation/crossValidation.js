@@ -1,6 +1,6 @@
 import moment from "moment";
 
-export const crossValidate = (
+export const crossValidation = (
   newEventDate,
   newEventEnd,
   newEventStart,
@@ -9,16 +9,17 @@ export const crossValidate = (
   let crossingEvents = [];
   const newEventStartMoment = `${newEventDate} ${newEventStart}`;
   const newEventEndMoment = `${newEventDate} ${newEventEnd}`;
-  if (existingEvents.every((event) => event["event-date"] !== newEventDate)) {
+  if (
+    existingEvents.every((event) => event["event-start-date"] !== newEventDate)
+  ) {
     return false;
   }
   const sameDayEvents = existingEvents.filter(
-    (event) => event["event-date"] === newEventDate
+    (event) => event["event-start-date"] === newEventDate
   );
-
   sameDayEvents.map((event) => {
-    const eventStartMoment = `${event["event-date"]} ${event["event-start"]}`;
-    const eventEndMoment = `${event["event-date"]} ${event["event-end"]}`;
+    const eventStartMoment = `${event["event-start-date"]} ${event["event-start"]}`;
+    const eventEndMoment = `${event["event-start-date"]} ${event["event-end"]}`;
     if (
       moment(eventStartMoment).isBetween(
         newEventStartMoment,
@@ -36,7 +37,9 @@ export const crossValidate = (
       crossingEvents = [...crossingEvents, 1];
     }
   });
+  console.log(crossingEvents.length);
   if (crossingEvents.length > 0) {
+    alert("It seems you have another plans buddy");
     return true;
   } else {
     return false;

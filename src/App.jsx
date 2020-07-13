@@ -2,8 +2,7 @@ import React from "react";
 import HeaderMain from "./header/HeaderMain";
 import MainBoard from "./main/MainBoard";
 import PopUp from "./popup/PopUp";
-import moment from "moment";
-import { crossValidate } from "./validation/crossValidate";
+import { crossValidation } from "./validation/crossValidation";
 import { lengthValidation } from "./validation/lengthValidation";
 import { oneDayValidation } from "./validation/oneDayValidation";
 
@@ -22,20 +21,11 @@ class App extends React.Component {
     eventStart: "",
     startDate: "",
     endDate: "",
-    otherPlans: false,
-    tooLong: false,
-    isMidnight: false,
   };
 
   componentDidMount() {
     this.getEventsList();
   }
-
-  onDeleteShow = () => {
-    this.setState({
-      isDelete: true,
-    });
-  };
 
   onDeleteEvent = (id) => {
     return deleteEvent(id).then(() => this.getEventsList());
@@ -71,31 +61,24 @@ class App extends React.Component {
         newEvent["event-end-date"]
       )
     ) {
-      this.setState({
-        isMidnight: true,
-      });
       return;
     }
     if (lengthValidation(newEvent["event-start"], newEvent["event-end"])) {
-      this.setState({
-        tooLong: true,
-      });
       return;
     }
     if (
-      !crossValidate(
+      crossValidation(
         newEvent["event-start-date"],
         newEvent["event-end"],
         newEvent["event-start"],
         this.state.events
       )
     ) {
+      return;
+    }
+    {
       createEvent(newEvent).then(() => this.getEventsList());
       this.hidePopUp();
-    } else {
-      this.setState({
-        otherPlans: true,
-      });
     }
   };
 
@@ -103,9 +86,6 @@ class App extends React.Component {
     console.log(startDate);
     console.log(endDate);
     this.setState({
-      IsMidnight: false,
-      otherPlans: false,
-      tooLong: false,
       startDate,
       endDate,
       eventStart: `${start}:00`,
@@ -139,7 +119,6 @@ class App extends React.Component {
   };
 
   render() {
-    console.log(this.state.events);
     const style = this.state.isPopup
       ? {
           opacity: 0.4,
@@ -169,9 +148,6 @@ class App extends React.Component {
         </div>
         {this.state.isPopup && (
           <PopUp
-            isMidnight={this.state.isMidnight}
-            tooLong={this.state.tooLong}
-            otherPlans={this.state.otherPlans}
             startDate={this.state.startDate}
             endDate={this.state.endDate}
             eventStart={this.state.eventStart}

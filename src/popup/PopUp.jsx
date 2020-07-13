@@ -64,17 +64,6 @@ class PopUp extends React.Component {
             id="end-date"
           />
         </div>
-        {this.props.otherPlans && (
-          <ValidateMessage>
-            It seems you have another plans buddy
-          </ValidateMessage>
-        )}
-        {this.props.tooLong && (
-          <ValidateMessage>It can`t take more, than 6 hours</ValidateMessage>
-        )}
-        {this.props.isMidnight && (
-          <ValidateMessage>Try to finish it in one day</ValidateMessage>
-        )}
         <div className="event-form__event-description">
           <textarea
             value={this.state["event-description"]}

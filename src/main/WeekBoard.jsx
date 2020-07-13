@@ -6,14 +6,7 @@ import moment from "moment";
 
 class WeekBoard extends React.Component {
   render() {
-    const {
-      getDates,
-      events,
-      showPopUp,
-      showDelete,
-      deleteEvent,
-      isDelete,
-    } = this.props;
+    const { getDates, events, showPopUp, deleteEvent } = this.props;
     return (
       <div className="week">
         {getDates().map((day) => {
@@ -23,11 +16,10 @@ class WeekBoard extends React.Component {
             <DayString id={key} key={day} showPopUp={showPopUp}>
               {currentDay === key && <RedLine />}
               {events.map((event) => {
-                if (event["event-date"] === key) {
+                if (event["event-start-date"] === key) {
                   return (
                     <Event
-                      isDelete={isDelete}
-                      showDelete={showDelete}
+                      date={key}
                       deleteEvent={deleteEvent}
                       id={event.id}
                       key={event.id}

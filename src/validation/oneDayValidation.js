@@ -5,6 +5,10 @@ export const oneDayValidation = (startTime, endTime, startDate, endDate) => {
   const end = `${endDate} ${endTime}`;
   const midNight = `${endDate} 00:00`;
   const isMidnight = moment(midNight).isBetween(start, end);
-  debugger;
-  return isMidnight;
+  if (isMidnight) {
+    alert("Try to finish it in one day");
+    return true;
+  } else {
+    return false;
+  }
 };

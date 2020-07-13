@@ -1,6 +1,5 @@
 import React from "react";
-// onClick={deleteTask(id)}
-const DeleteBtn = ({ deleteTask, id }) => {
+const DeleteBtn = ({ deleteTask, id, isDelete }) => {
   return (
     <div className="delete-button">
       <span onClick={() => deleteTask(id)} className="delete-button__text">
