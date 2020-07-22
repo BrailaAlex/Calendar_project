@@ -31,17 +31,17 @@ class Event extends React.Component {
       this.props.deleteEvent(id);
     }
   };
+
   render() {
-    console.log(this.state.isDelete);
     const { startTime, endTime, eventName, id } = this.props;
-    let start =
+    const start =
       (startTime[0] === 0 ? startTime.slice(1, 2) : startTime.slice(0, 2)) *
         60 +
       +startTime.slice(3, 5);
-    let end =
+    const end =
       (endTime[0] === 0 ? endTime.slice(1, 2) : endTime.slice(0, 2)) * 60 +
       +endTime.slice(3, 5);
-    let duration = end - start;
+    const duration = end - start;
     const style = {
       top: `${start}px`,
       height: `${duration}px`,

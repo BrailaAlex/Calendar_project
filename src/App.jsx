@@ -5,12 +5,13 @@ import PopUp from "./popup/PopUp";
 import { crossValidation } from "./validation/crossValidation";
 import { lengthValidation } from "./validation/lengthValidation";
 import { oneDayValidation } from "./validation/oneDayValidation";
+import { eventStartValidation } from "./validation/eventStartValidation";
 
 import {
   createEvent,
   fetchEventsList,
   deleteEvent,
-} from "../src/serverPart/gateWays";
+} from "./serverPart/gateWays";
 
 class App extends React.Component {
   state = {
@@ -34,8 +35,9 @@ class App extends React.Component {
   getDates = () => {
     const weekString = [];
 
+    // eslint-disable-next-line no-plusplus
     for (let i = 0; i <= 6; i++) {
-      let arg = this.state.firstMondayNumber + i;
+      const arg = this.state.firstMondayNumber + i;
       weekString.push(arg);
     }
     return weekString;
@@ -54,6 +56,16 @@ class App extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const newEvent = Object.fromEntries(new FormData(e.target));
+    if (
+      eventStartValidation(
+        newEvent["event-start"],
+        newEvent["event-start-date"],
+        newEvent["event-end"],
+        newEvent["event-end-date"]
+      )
+    ) {
+      return;
+    }
     if (
       oneDayValidation(
         newEvent["event-start"],
@@ -77,10 +89,8 @@ class App extends React.Component {
     ) {
       return;
     }
-    {
-      createEvent(newEvent).then(() => this.getEventsList());
-      this.hidePopUp();
-    }
+    createEvent(newEvent).then(() => this.getEventsList());
+    this.hidePopUp();
   };
 
   showPopUp = (start, end, startDate, endDate) => {
