@@ -12,9 +12,9 @@ class Event extends React.Component {
     this.hideDelete();
   }
 
-  showDelete = () => {
+  toggleDelete = () => {
     this.setState({
-      isDelete: true,
+      isDelete: !this.state.isDelete,
     });
   };
 
@@ -47,7 +47,7 @@ class Event extends React.Component {
       height: `${duration}px`,
     };
     return (
-      <div onClick={this.showDelete} style={style} className="event">
+      <div onClick={this.toggleDelete} style={style} className="event">
         <span className="event__contain">{eventName}</span>
         <span className="event__time">{`${startTime} - ${endTime}`}</span>
         {this.state.isDelete && (

@@ -13,5 +13,6 @@ export const timeDivide = () => {
       if (minutes === 60) minutes = 0;
     }
   });
+  timeArray.push("24:00");
   return timeArray;
 };
